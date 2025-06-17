@@ -1,0 +1,2412 @@
+{
+	"info": {
+		"_postman_id": "5208ebfd-f896-470b-bce9-56334ef14e96",
+		"name": "ON!Track Unite - Starter Kit (V1.0.22)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "43946859",
+		"_collection_link": "https://dushyant-2147590.postman.co/workspace/20250531_ON_Track_Unite_Postman~bf88bee5-d7e6-4c38-b2ef-89bf6818e0ae/collection/43946859-5208ebfd-f896-470b-bce9-56334ef14e96?action=share&source=collection_link&creator=43946859"
+	},
+	"item": [
+		{
+			"name": "Access Token",
+			"item": [
+				{
+					"name": "tokens",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"access_token\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"user-agent": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "{{client_secret}}",
+								"username": "{{client_id}}",
+								"showPassword": false
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "HC.Request.AllScopes",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{user_name}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{sso_portal}}/token"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Administration",
+			"item": [
+				{
+					"name": "countries",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": "{{hc_gateway}}/unite/v1/countries"
+					},
+					"response": []
+				},
+				{
+					"name": "countries/{countryCode}/states",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": "{{hc_gateway}}/unite/v1/countries/{{countryCode}}/states"
+					},
+					"response": []
+				},
+				{
+					"name": "currencies",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": "{{hc_gateway}}/unite/v1/currencies"
+					},
+					"response": []
+				},
+				{
+					"name": "languages",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": "{{hc_gateway}}/unite/v1/languages"
+					},
+					"response": []
+				},
+				{
+					"name": "manufacturers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hc_gateway}}/unite/v1/manufacturers",
+							"host": [
+								"{{hc_gateway}}"
+							],
+							"path": [
+								"unite",
+								"v1",
+								"manufacturers"
+							],
+							"query": [
+								{
+									"key": "orderBy",
+									"value": null,
+									"description": "Supports sorting",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "50",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								},
+								{
+									"key": "query",
+									"value": null,
+									"description": "Supports an optional query parameter for complex search criteria",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "stock-units",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": "{{hc_gateway}}/unite/v1/stock-units"
+					},
+					"response": []
+				}
+			],
+			"description": "All operations on domain models related to the Administration APIs"
+		},
+		{
+			"name": "Assets",
+			"item": [
+				{
+					"name": "assets",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hc_gateway}}/unite/v1/assets",
+							"host": [
+								"{{hc_gateway}}"
+							],
+							"path": [
+								"unite",
+								"v1",
+								"assets"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "externalId:eq=100001",
+									"description": "Asset filters in format of: 'fieldName:operator=value'",
+									"disabled": true
+								},
+								{
+									"key": "query",
+									"value": null,
+									"description": "Supports an optional query parameter for complex search criteria",
+									"disabled": true
+								},
+								{
+									"key": "parentId",
+									"value": null,
+									"description": "Supports an optional parentId parameter to get child assets for parent storage asset id",
+									"disabled": true
+								},
+								{
+									"key": "orderBy",
+									"value": null,
+									"description": "Supports sorting",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "50",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "assets",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Prefer",
+								"value": "return=representation",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"externalId\": \"EXTID-1234\",\r\n    \"name\": \"Test Power Tool\",\r\n    \"description\": \"Best tool in the world\",\r\n    \"notes\": \"Best tool in the world\",\r\n    \"costCode\": null,\r\n    \"manufacturerId\": null,\r\n    \"manufacturerName\": \"Hilti Inc\",\r\n    \"model\": \"TE 3000\",\r\n    \"scanCode\": 4711,\r\n    \"scanCodeType\": \"BAC\",\r\n    \"inventoryNumber\": null,\r\n    \"serialNumber\": null,\r\n    \"ownershipType\": \"OWNED\",\r\n    \"typeCode\": \"NORMAL\",\r\n    \"categoryCode\": \"UNQAST\",\r\n    \"statusCode\": \"OPR\",\r\n    \"storageLocation\": \"Shelf A-01\",\r\n    \"groupId\": 0,\r\n    \"defaultLocationId\": addID,\r\n    \"currentLocationId\": addID,\r\n    \"responsibleEmployeeId\": addID,\r\n    \"inventoryEmployeeId\": addID,\r\n    \"labels\": null,\r\n    \"assetUsageConditionStateCode\": null,\r\n    \"assetUsageConditionDate\": null,\r\n    \"ownershipDetails\": {\r\n        \"vendor\": null,\r\n        \"purchaseDate\": null,\r\n        \"purchaseOrderNumber\": null,\r\n        \"purchasePrice\": null,\r\n        \"purchaseCurrencyCode\": null,\r\n        \"warrantyExpirationDate\": null,\r\n        \"replacementCost\": null\r\n    },\r\n    \"assetAttachments\": [\r\n        {\r\n            \"displayName\": null,\r\n            \"attachmentId\": \"addID\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{hc_gateway}}/unite/v1/assets"
+					},
+					"response": []
+				},
+				{
+					"name": "assets/{assetId}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": "{{hc_gateway}}/unite/v1/assets/{{assetId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "assets/{assetId}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Prefer",
+								"value": "return=representation",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"externalId\": \"EXTID-1234 - EDITED\",\r\n    \"name\": \"Power Tool 1 - Test - EDITED\",\r\n    \"description\": \"Best tool in the world - EDITED\",\r\n    \"notes\": \"Best tool in the world - EDITED\",\r\n    \"costCode\": null,\r\n    \"manufacturerId\": null,\r\n    \"manufacturerName\": \"Hilti Inc\",\r\n    \"model\": \"TE 3000\",\r\n    \"scanCode\": 4711,\r\n    \"scanCodeType\": \"BAC\",\r\n    \"inventoryNumber\": null,\r\n    \"serialNumber\": null,\r\n    \"ownershipType\": \"OWNED\",\r\n    \"typeCode\": \"NORMAL\",\r\n    \"subTypeCode\": \"UNIQUE\",\r\n    \"categoryCode\": \"UNQAST\",\r\n    \"statusCode\": \"OPR\",\r\n    \"storageLocation\": \"Shelf A-01\",\r\n    \"groupId\": 0,\r\n    \"defaultLocationId\": addID,\r\n    \"currentLocationId\": addID,\r\n    \"responsibleEmployeeId\": addID,\r\n    \"inventoryEmployeeId\": addID,\r\n    \"labels\": null,\r\n    \"assetUsageConditionStateCode\": null,\r\n    \"assetUsageConditionDate\": null,\r\n    \"ownershipDetails\": {\r\n        \"vendor\": null,\r\n        \"purchaseDate\": null,\r\n        \"purchaseOrderNumber\": null,\r\n        \"purchasePrice\": null,\r\n        \"purchaseCurrencyCode\": null,\r\n        \"warrantyExpirationDate\": null,\r\n        \"replacementCost\": null\r\n    },\r\n    \"defaultParentOnTrackId\": addID,\r\n    \"parentOnTrackId\": addID,\r\n    \"defaultWorkerId\": addID,\r\n    \"assetAttachments\": [\r\n        {\r\n            \"displayName\": null,\r\n            \"attachmentId\": \"addID\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{hc_gateway}}/unite/v1/assets/{{assetId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "assets/{assetId}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": "{{hc_gateway}}/unite/v1/assets/{{assetId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "assets/geolocations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hc_gateway}}/unite/v1/assets/geolocations",
+							"host": [
+								"{{hc_gateway}}"
+							],
+							"path": [
+								"unite",
+								"v1",
+								"assets",
+								"geolocations"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": null,
+									"description": "Supports an optional query parameter for complex search criteria",
+									"disabled": true
+								},
+								{
+									"key": "filter",
+									"value": null,
+									"description": "Supports filters for simple search setups",
+									"disabled": true
+								},
+								{
+									"key": "orderBy",
+									"value": null,
+									"description": "Supports sorting",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "50",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "All operations on the Asset domain model"
+		},
+		{
+			"name": "Asset Costs",
+			"item": [
+				{
+					"name": "assets/-/asset-costs",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hc_gateway}}/unite/v1/assets/-/asset-costs",
+							"host": [
+								"{{hc_gateway}}"
+							],
+							"path": [
+								"unite",
+								"v1",
+								"assets",
+								"-",
+								"asset-costs"
+							],
+							"query": [
+								{
+									"key": "assetIds",
+									"value": "10001,20001",
+									"description": "Supports an optional query parameter to filter by asset ids",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "50",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "assets/{assetId}/asset-costs",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Prefer",
+								"value": "return=representation",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"assetCostType\": \"DAILY\",\r\n    \"assetCostValue\": 1.52\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{hc_gateway}}/unite/v1/assets/{{assetId}}/asset-costs"
+					},
+					"response": []
+				},
+				{
+					"name": "assets/{assetId}/asset-costs",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": "{{hc_gateway}}/unite/v1/assets/{{assetId}}/asset-costs"
+					},
+					"response": []
+				},
+				{
+					"name": "assets/{assetId}/asset-costs",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Prefer",
+								"value": "return=representation",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"assetCostType\": \"DAILY\",\r\n    \"assetCostValue\": 2.00\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{hc_gateway}}/unite/v1/assets/{{assetID}}/asset-costs"
+					},
+					"response": []
+				}
+			],
+			"description": "All operations on the AssetCost domain model"
+		},
+		{
+			"name": "Asset Services",
+			"item": [
+				{
+					"name": "assets/services",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hc_gateway}}/unite/v1/assets/services",
+							"host": [
+								"{{hc_gateway}}"
+							],
+							"path": [
+								"unite",
+								"v1",
+								"assets",
+								"services"
+							],
+							"query": [
+								{
+									"key": "assetId",
+									"value": "",
+									"description": "The asset identifier",
+									"disabled": true
+								},
+								{
+									"key": "query",
+									"value": "",
+									"description": "Supports an optional query parameter for complex search criteria",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "50",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "assets/{assetId}/history-services",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hc_gateway}}/unite/v1/assets/{{assetId}}/history-services",
+							"host": [
+								"{{hc_gateway}}"
+							],
+							"path": [
+								"unite",
+								"v1",
+								"assets",
+								"{{assetId}}",
+								"history-services"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "serviceName:eq=1234",
+									"description": "Asset History Services filters in format of: 'fieldName:operator=value'",
+									"disabled": true
+								},
+								{
+									"key": "orderBy",
+									"value": null,
+									"description": "Supports sorting",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "50",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "assets/{assetId}/history-services/{historyServiceId}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": "{{hc_gateway}}/unite/v1/assets/{{assetId}}/history-services/{{historyServiceId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "assets/{assetId}/open-services",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hc_gateway}}/unite/v1/assets/{{assetId}}/open-services",
+							"host": [
+								"{{hc_gateway}}"
+							],
+							"path": [
+								"unite",
+								"v1",
+								"assets",
+								"{{assetId}}",
+								"open-services"
+							],
+							"query": [
+								{
+									"key": "orderBy",
+									"value": null,
+									"description": "Supports sorting",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "50",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "assets/{assetId}/open-services/{openServiceId}/complete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"completionDate\": \"2022-08-10\",\n    \"cost\": 5.5,\n    \"costCurrency\": \"USD\",\n    \"serviceProvider\": \"Hilti\",\n    \"serviceResult\": \"PASSED\",\n    \"notes\": \"Hilti\",\n    \"serviceAttachments\": [\n        {\n            \"serviceAttachmentId\": addID,\n            \"displayName\":null\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{hc_gateway}}/unite/v1/assets/{{assetId}}/open-services/{{openServiceId}}/complete"
+					},
+					"response": []
+				},
+				{
+					"name": "/assets/{assetId}/assign-open-service",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"serviceTemplateId\": addID,\n    \"serviceScheduleDate\": \"2024-01-27\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{hc_gateway}}/unite/v1/assets/{{assetId}}/assign-open-service"
+					},
+					"response": []
+				}
+			],
+			"description": "All operations on the AssetService domain model"
+		},
+		{
+			"name": "Documents",
+			"item": [
+				{
+					"name": "documents/{documentId}/pre-signed-url",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": "{{hc_gateway}}/unite/v1/documents/{{documentId}}/pre-signed-url"
+					},
+					"response": []
+				},
+				{
+					"name": "documents",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Prefer",
+								"value": "return=representation",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"description": "This file field is mandatory",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "associatedEntity",
+									"value": "assetOpenService",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": "{{hc_gateway}}/unite/v1/documents"
+					},
+					"response": []
+				}
+			],
+			"description": "All operations on the Document domain model"
+		},
+		{
+			"name": "Employees",
+			"item": [
+				{
+					"name": "workers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hc_gateway}}/unite/v1/workers",
+							"host": [
+								"{{hc_gateway}}"
+							],
+							"path": [
+								"unite",
+								"v1",
+								"workers"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "",
+									"description": "Supports an optional query parameter for complex search criteria",
+									"disabled": true
+								},
+								{
+									"key": "filter",
+									"value": "externalId:eq=100001",
+									"description": "Worker filters in format of: 'fieldName:operator=value'",
+									"disabled": true
+								},
+								{
+									"key": "orderBy",
+									"value": "",
+									"description": "Supports sorting",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "50",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "workers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							},
+							{
+								"key": "Prefer",
+								"value": "return=representation",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"externalId\": \"BU-1234\",\r\n    \"firstName\": \"Firstname - Test\",\r\n    \"lastName\": \"Lastname - Test\",\r\n    \"designation\": null,\r\n    \"contractType\": null,\r\n    \"responsibilityType\": \"LOCATION_MANAGER\",\r\n    \"costCenter\": null,\r\n    \"description\": null,\r\n    \"labels\": [\r\n        \"CEO\"\r\n    ],\r\n    \"badgeId\": null,\r\n    \"scanCode\": null,\r\n    \"phoneNumbers\": {\r\n        \"office\": null,\r\n        \"mobile\": null,\r\n        \"primaryEmergency\": null,\r\n        \"privateHome\": null\r\n    },\r\n    \"notificationEmail\": null,\r\n    \"languageCode\": null,\r\n    \"address\": {\r\n        \"addressLine1\": null,\r\n        \"addressLine2\": null,\r\n        \"city\": null,\r\n        \"postalCode\": null,\r\n        \"countryCode\": null,\r\n        \"state\": null\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{hc_gateway}}/unite/v1/workers"
+					},
+					"response": []
+				},
+				{
+					"name": "workers/{workerId}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": "{{hc_gateway}}/unite/v1/workers/{{workerId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "workers/{workerId}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							},
+							{
+								"key": "Prefer",
+								"value": "return=representation",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"externalId\": \"BU-1234 - EDITED\",\r\n    \"firstName\": \"Firstname - Test - EDITED\",\r\n    \"lastName\": \"Lastname - Test - EDITED\",\r\n    \"designation\": null,\r\n    \"contractType\": null,\r\n    \"responsibilityType\": \"LOCATION_MANAGER\",\r\n    \"costCenter\": null,\r\n    \"description\": null,\r\n    \"labels\": [\r\n        \"CEO\"\r\n    ],\r\n    \"badgeId\": null,\r\n    \"scanCode\": null,\r\n    \"phoneNumbers\": {\r\n        \"office\": null,\r\n        \"mobile\": null,\r\n        \"primaryEmergency\": null,\r\n        \"privateHome\": null\r\n    },\r\n    \"notificationEmail\": null,\r\n    \"languageCode\": null,\r\n    \"address\": {\r\n        \"addressLine1\": null,\r\n        \"addressLine2\": null,\r\n        \"city\": null,\r\n        \"postalCode\": null,\r\n        \"countryCode\": null,\r\n        \"state\": null\r\n    },\r\n    \"roleId\": null,\r\n    \"isUser\": false,\r\n    \"email\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{hc_gateway}}/unite/v1/workers/{{workerId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "workers/{workerId}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": "{{hc_gateway}}/unite/v1/workers/{{workerId}}"
+					},
+					"response": []
+				}
+			],
+			"description": "All operations on the Worker domain model"
+		},
+		{
+			"name": "Groups",
+			"item": [
+				{
+					"name": "groups",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": "{{hc_gateway}}/unite/v1/groups"
+					},
+					"response": []
+				},
+				{
+					"name": "groups",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							},
+							{
+								"key": "Prefer",
+								"value": "return=representation",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Groupname - Test\",\n  \"parentGroupId\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{hc_gateway}}/unite/v1/groups"
+					},
+					"response": []
+				},
+				{
+					"name": "groups/{groupId}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							},
+							{
+								"key": "Prefer",
+								"value": "return=representation",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Groupname - Test\",\n  \"parentGroupId\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{hc_gateway}}/unite/v1/groups/{{groupId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "groups/{groupId}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": "{{hc_gateway}}/unite/v1/groups/{{groupId}}"
+					},
+					"response": []
+				}
+			],
+			"description": "All operations on the Group domain model"
+		},
+		{
+			"name": "Locations",
+			"item": [
+				{
+					"name": "locations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hc_gateway}}/unite/v1/locations",
+							"host": [
+								"{{hc_gateway}}"
+							],
+							"path": [
+								"unite",
+								"v1",
+								"locations"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "",
+									"description": "Supports an optional query parameter for complex search criteria",
+									"disabled": true
+								},
+								{
+									"key": "filter",
+									"value": "externalId:eq=100001",
+									"description": "Location filters in format of: 'fieldName:operator=value'",
+									"disabled": true
+								},
+								{
+									"key": "orderBy",
+									"value": null,
+									"description": "Supports sorting",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "50",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "locations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							},
+							{
+								"key": "Prefer",
+								"value": "return=representation",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"addressLine1\": null,\r\n    \"addressLine2\": null,\r\n    \"city\": null,\r\n    \"costCenter\": null,\r\n    \"country\": null,\r\n    \"customLocationId\": null,\r\n    \"description\": null,\r\n    \"externalId\": \"EXTID-1234\",\r\n    \"labels\": null,\r\n    \"locationManagerId\": addID,\r\n    \"locationPhoneNumber\": null,\r\n    \"locationState\": \"ACTIVE\",\r\n    \"name\": \"Location - Test\",\r\n    \"postalCode\": null,\r\n    \"scanCode\": null,\r\n    \"state\": null,\r\n    \"type\": \"JOBSITE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{hc_gateway}}/unite/v1/locations"
+					},
+					"response": []
+				},
+				{
+					"name": "locations/{locationId}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": "{{hc_gateway}}/unite/v1/locations/{{locationId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "locations/{locationId}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							},
+							{
+								"key": "Prefer",
+								"value": "return=representation",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"addressLine1\": null,\r\n    \"addressLine2\": null,\r\n    \"city\": null,\r\n    \"costCenter\": null,\r\n    \"country\": null,\r\n    \"customLocationId\": null,\r\n    \"description\": null,\r\n    \"externalId\": \"EXTID-1234 - EDITED\",\r\n    \"labels\": null,\r\n    \"locationManagerId\": addID,\r\n    \"locationPhoneNumber\": null,\r\n    \"locationState\": \"ACTIVE\",\r\n    \"name\": \"Location - Test - EDITED\",\r\n    \"postalCode\": null,\r\n    \"scanCode\": null,\r\n    \"state\": null,\r\n    \"type\": \"JOBSITE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{hc_gateway}}/unite/v1/locations/{{locationId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "locations/{locationId}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": "{{hc_gateway}}/unite/v1/locations/{{locationId}}"
+					},
+					"response": []
+				}
+			],
+			"description": "All operations on the Location domain model"
+		},
+		{
+			"name": "Quantity Items",
+			"item": [
+				{
+					"name": "quantity-items",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hc_gateway}}/unite/v1/quantity-items",
+							"host": [
+								"{{hc_gateway}}"
+							],
+							"path": [
+								"unite",
+								"v1",
+								"quantity-items"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "",
+									"description": "Supports an optional query parameter for complex search criteria",
+									"disabled": true
+								},
+								{
+									"key": "parentAssetId",
+									"value": "904154",
+									"description": "Supports an optional query parameter to list child quantity items by parentAssetId (Storage Asset Id)",
+									"disabled": true
+								},
+								{
+									"key": "filter",
+									"value": "scanCode:eq=100001",
+									"description": "Supports filters for simple search setups",
+									"disabled": true
+								},
+								{
+									"key": "orderBy",
+									"value": "stockUnitId",
+									"description": "Supports sorting",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "50",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "quantity-items",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"user-agent": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Prefer",
+								"value": "return=representation",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"externalId\": \"ExtID 1234\",\r\n    \"name\": \"Hilti - Power Gloves\",\r\n    \"description\": \"Best gloves in the world\",\r\n    \"notes\": \"Restock before they are empty\",\r\n    \"manufacturerId\": 1,\r\n    \"manufacturerName\": \"Hilti\",\r\n    \"model\": \"Yellow gloves\",\r\n    \"scanCode\": \"471112\",\r\n    \"scanCodeType\": \"BAC\",\r\n    \"inventoryNumber\": \"inv-471112\",\r\n    \"groupId\": 0,\r\n    \"labels\": [\r\n        \"accessories\"\r\n    ],\r\n    \"canConsume\": true,\r\n    \"stockUnitId\": 1,\r\n    \"oneTimeCost\": 27.54\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{hc_gateway}}/unite/v1/quantity-items"
+					},
+					"response": []
+				},
+				{
+					"name": "quantity-items/{quantityItemId}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": "{{hc_gateway}}/unite/v1/quantity-items/{{quantityItemId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "quantity-items/{quantityItemId}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Prefer",
+								"value": "return=representation",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"externalId\": \"ExtID 1234 - EDITED\",\r\n    \"name\": \"Hilti - Power Gloves - EDITED\",\r\n    \"description\": \"Best gloves in the world - EDITED\",\r\n    \"notes\": \"Restock before they are empty - EDITED\",\r\n    \"manufacturerId\": 1,\r\n    \"manufacturerName\": \"Hilti\",\r\n    \"model\": \"Yellow gloves - EDITED\",\r\n    \"scanCode\": \"471112\",\r\n    \"scanCodeType\": \"BAC\",\r\n    \"inventoryNumber\": \"inv-471112\",\r\n    \"groupId\": 0,\r\n    \"labels\": [\r\n        \"accessories\"\r\n    ],\r\n    \"canConsume\": true,\r\n    \"stockUnitId\": 1,\r\n    \"oneTimeCost\": 27.54\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{hc_gateway}}/unite/v1/quantity-items/{{quantityItemId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "quantity-items/{quantityItemId}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": "{{hc_gateway}}/unite/v1/quantity-items/{{quantityItemId}}"
+					},
+					"response": []
+				}
+			],
+			"description": "All operations on the QuantityItem domain model"
+		},
+		{
+			"name": "Quantity Item - Allocations",
+			"item": [
+				{
+					"name": "quantity-items/{quantityItemId}/allocations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hc_gateway}}/unite/v1/quantity-items/{{quantityItemId}}/allocations",
+							"host": [
+								"{{hc_gateway}}"
+							],
+							"path": [
+								"unite",
+								"v1",
+								"quantity-items",
+								"{{quantityItemId}}",
+								"allocations"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "",
+									"description": "Supports an optional query parameter for complex search criteria",
+									"disabled": true
+								},
+								{
+									"key": "filter",
+									"value": "allocationStatus:eq=RESERVED",
+									"description": "Supports filters for simple search setups",
+									"disabled": true
+								},
+								{
+									"key": "orderBy",
+									"value": "stockQuantity",
+									"description": "Supports sorting",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "50",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "quantity-items/{quantityItemId}/allocations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"user-agent": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Prefer",
+								"value": "return=representation",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"allocationType\": \"LOCATION\",\r\n    \"allocationTypeId\": addLocationID,\r\n    \"responsibleEmployeeId\": addWorkerID,\r\n    \"mainAllocationFlag\": false,\r\n    \"stockQuantity\": 20.000,\r\n    \"stockMin\": null,\r\n    \"stockMax\": null,\r\n    \"stockAlertEnabled\": false,\r\n    \"storageLocation\": \"Shelf 1A\",\r\n    \"allocationStatus\": \"AVAILABLE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{hc_gateway}}/unite/v1/quantity-items/{{quantityItemId}}/allocations"
+					},
+					"response": []
+				},
+				{
+					"name": "quantity-item-allocations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hc_gateway}}/unite/v1/quantity-item-allocations",
+							"host": [
+								"{{hc_gateway}}"
+							],
+							"path": [
+								"unite",
+								"v1",
+								"quantity-item-allocations"
+							],
+							"query": [
+								{
+									"key": "parentAssetId",
+									"value": "",
+									"description": "The operation supports an optional query parameter to list child allocations by parentAssetId (Storage Asset Id)",
+									"disabled": true
+								},
+								{
+									"key": "quantityItemIds",
+									"value": "",
+									"description": "The operation supports an optional query parameter to filter allocation by quantity item ids",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "50",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "quantity-item-allocations/{allocationId}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": "{{hc_gateway}}/unite/v1/quantity-item-allocations/{{allocationId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "quantity-item-allocations/{allocationId}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Prefer",
+								"value": "return=representation",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mainAllocationFlag\": true,\r\n    \"stockMin\": 10.220,\r\n    \"stockMax\": 766.160,\r\n    \"stockAlertEnabled\": true,\r\n    \"storageLocation\": \"Shelf 1A - EDITED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{hc_gateway}}/unite/v1/quantity-item-allocations/{{allocationId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "quantity-item-allocations/{allocationId}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": "{{hc_gateway}}/unite/v1/quantity-item-allocations/{{allocationId}}"
+					},
+					"response": []
+				}
+			],
+			"description": "All operations on the QuantityItemAllocation domain model"
+		},
+		{
+			"name": "Quantity Item - Stock Modifications",
+			"item": [
+				{
+					"name": "restock of quantity-item allocation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"user-agent": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Prefer",
+								"value": "return=representation",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"addedStock\": 12.125,\r\n    \"reason\": \"Add a reason for restocking event\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{hc_gateway}}/unite/v1/quantity-item-allocations/{{allocationId}}/restock"
+					},
+					"response": []
+				},
+				{
+					"name": "stock correction of quantity-item allocation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"user-agent": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Prefer",
+								"value": "return=representation",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"correctedStockQuantity\": 5,\r\n    \"reason\": \"Add a reason for stock correction event\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{hc_gateway}}/unite/v1/quantity-item-allocations/{{allocationId}}/stock-correction"
+					},
+					"response": []
+				},
+				{
+					"name": "change status of quantity-item allocation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"user-agent": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Prefer",
+								"value": "return=representation",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"allocationStatus\": \"CONSUMED\",\r\n    \"reason\": \"Add a reason for status change event\",\r\n    \"stockQuantity\": 1.5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{hc_gateway}}/unite/v1/quantity-item-allocations/{{allocationId}}/status-change"
+					},
+					"response": []
+				}
+			],
+			"description": "All operations related to the stock modifications of QuantityItemAllocation domain model"
+		},
+		{
+			"name": "Rental API",
+			"item": [
+				{
+					"name": "runtimedata",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hc_gateway}}/unite/v1/runtimedata",
+							"host": [
+								"{{hc_gateway}}"
+							],
+							"path": [
+								"unite",
+								"v1",
+								"runtimedata"
+							],
+							"query": [
+								{
+									"key": "afterDateTime",
+									"value": "2023-09-21T06:42:11Z",
+									"description": "Retrieve runtimedata for assets after the specified date time",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "50",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "runtimedata/{{assetId}}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": "{{hc_gateway}}/unite/v1/runtimedata/{{assetId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "usage-history",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hc_gateway}}/unite/v1/usage-history",
+							"host": [
+								"{{hc_gateway}}"
+							],
+							"path": [
+								"unite",
+								"v1",
+								"usage-history"
+							],
+							"query": [
+								{
+									"key": "afterDate",
+									"value": "2023-09-30",
+									"description": "Supports an optional query parameter to get usage history filter by after last updated date with format (yyyy-MM-DD)",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "50",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "usage-history/{{assetId}}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hc_gateway}}/unite/v1/usage-history/{{assetId}}",
+							"host": [
+								"{{hc_gateway}}"
+							],
+							"path": [
+								"unite",
+								"v1",
+								"usage-history",
+								"{{assetId}}"
+							],
+							"query": [
+								{
+									"key": "afterDate",
+									"value": "2023-09-30",
+									"description": "Supports an optional query parameter to get usage history filter by after last updated date with format (yyyy-MM-DD)",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "All operations on the Rental APIs domain model"
+		},
+		{
+			"name": "Transfers",
+			"item": [
+				{
+					"name": "transfers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hc_gateway}}/unite/v1/transfers",
+							"host": [
+								"{{hc_gateway}}"
+							],
+							"path": [
+								"unite",
+								"v1",
+								"transfers"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": null,
+									"description": "Supports an optional query parameter for complex search criteria",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "50",
+									"description": "Supports pagination through the use of offset and limit parameters",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filtered transfers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hc_gateway}}/unite/v1/transfers",
+							"host": [
+								"{{hc_gateway}}"
+							],
+							"path": [
+								"unite",
+								"v1",
+								"transfers"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "submittedDate%3Age=2021-12-24,submittedDate%3Ale%3D2022-02-01",
+									"description": "Transfer filters in format of: 'fieldName:operator=value'",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "transfers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							},
+							{
+								"key": "Prefer",
+								"value": "return=representation",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"submittedTimestamp\": \"2022-11-03T10:31:20.057Z\",\r\n    \"transferTimestamp\": \"2022-11-03T10:31:20.057Z\",\r\n    \"origin\": \"EXTERNAL\",\r\n    \"notes\": \"Transfer notes\",\r\n    \"taskCode\": \"Transfer task code\",\r\n    \"assetDetails\": [\r\n        {\r\n            \"ontrackId\": addID,\r\n            \"transferAssetType\": \"ASSET\",\r\n            \"fromLocationId\": addID,\r\n            \"fromWorkerId\": addID,\r\n            \"fromStorageAssetId\": addID,\r\n            \"toAllocationStatus\": \"AVAILABLE\",\r\n            \"toLocationId\": addID,\r\n            \"toWorkerId\": addID,\r\n            \"toStorageAssetId\": addID,\r\n            \"transferQuantity\": 1,\r\n            \"transferStatus\": \"CONFIRMED\",\r\n            \"quantityItemId\": addID // expected for QtyItemAllocation transfer\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{hc_gateway}}/unite/v1/transfers"
+					},
+					"response": []
+				},
+				{
+					"name": "transfers/{transferId}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json;odata=verbose",
+								"type": "text"
+							}
+						],
+						"url": "{{hc_gateway}}/unite/v1/transfers/{{transferId}}"
+					},
+					"response": []
+				}
+			],
+			"description": "All operations on the Transfer domain model"
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": {
+			"password": "",
+			"username": ""
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
